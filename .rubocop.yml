@@ -1,0 +1,209 @@
+# 追加した規約ファイルの読込
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  # Ruby バージョン指定
+  TargetRubyVersion: 2.7.1
+
+  # 除外
+  Exclude:
+    - 'vendor/**/*' # rubocop config/default.yml
+    - 'bin/**/*'
+    - 'lib/**/*'
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'node_modules/**/*'
+
+#################### Bundler ###########################
+
+# Gemfile のアルファベット順ソートを無視する
+Bundler/OrderedGems:
+  Enabled: false
+
+#################### Layout ###########################
+
+# 1 行最大 120 文字
+Layout/LineLength:
+  Max: 120
+
+#################### Metrics ###############################
+
+# 一旦 30 までとする
+Metrics/AbcSize:
+  Max: 30
+
+# rake, spec, environments, routes は巨大な block 不可避なので除外
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'Gemfile'
+    - '*.gemspec'
+
+# 20 行を超えるのは migration ファイル以外滅多にない
+Metrics/MethodLength:
+  Max: 20
+
+#################### Naming ##############################
+
+# メソッド名の prefix に「set_」「get_」を許可
+Naming/AccessorMethodName:
+  Enabled: false
+
+#################### Rails ###############################
+
+# デフォルトで作成されるファイルに関しては除外
+Rails/FilePath:
+  Exclude:
+    - 'spec/**/*.rb'
+
+# spec では skipping-validations にリストされている検証をスキップするメソッドの使用を許可
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*.rb'
+
+#################### Style ###############################
+
+# 「and」「or」の使用を許可
+Style/AndOr:
+  Enabled: false
+
+# 日本語でのコメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# spec では block comments の使用を許可(spec_helper.rb に default で使用されているため)
+Style/BlockComments:
+  Exclude:
+    - 'spec/**/*.rb'
+
+# モジュール名::クラス名の定義を許可
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# メソッド呼び出しで :: の使用を許可
+Style/ColonMethodCall:
+  Enabled: false
+
+# クラス、モジュールのコメント必須を無視
+Style/Documentation:
+  Enabled: false
+
+# frozen_string_literal: true を使用しない
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# if 文の中に 3 行程度のブロックを書くのは許容する
+Style/GuardClause:
+  MinBodyLength: 3
+
+# 文字列リテラルでは double_quotes を使用する
+# Gemfile, デフォルトで作成されるファイルでは String リテラルでの single_quotes, double_quotes の設定を除外
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Exclude:
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'app/mailers/application_mailer.rb'
+    - 'spec/rails_helper.rb'
+
+# 配列リテラルでは brackets を使用
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+#################### Added cops ###############################
+
+# https://docs.rubocop.org/rubocop/0.85/cops_layout.html#layoutemptylinesaroundattributeaccessor
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/cops_layout.html#layoutspacearoundmethodcalloperator
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_lint.html#lintdeprecatedopensslconstant
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_lint.html#lintmixedregexpcapturetypes
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_lint.html#lintraiseexception
+Lint/RaiseException:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_lint.html#lintstructnewoverride
+Lint/StructNewOverride:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#styleexponentialnotation
+Style/ExponentialNotation:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#stylehasheachmethods
+Style/HashEachMethods:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#stylehashtransformkeys
+Style/HashTransformKeys:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.86/cops_style.html#stylehashtransformvalues
+Style/HashTransformValues:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.86/cops_style.html#styleredundantfetchblock
+Style/RedundantFetchBlock:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#styleredundantregexpcharacterclass
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#styleredundantregexpescape
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop/0.85/cops_style.html#styleslicingwithrange
+Style/SlicingWithRange:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performanceancestorsinclude
+Performance/AncestorsInclude:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/1.7/cops_performance.html#performancebigdecimalwithnumericargument
+Performance/BigDecimalWithNumericArgument:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performanceredundantsortblock
+Performance/RedundantSortBlock:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performanceredundantstringchars
+Performance/RedundantStringChars:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performancereversefirst
+Performance/ReverseFirst:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performancesortreverse
+Performance/SortReverse:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performancesqueeze
+Performance/Squeeze:
+  Enabled: true
+
+# https://docs.rubocop.org/rubocop-performance/cops_performance.html#performancestringinclude
+Performance/StringInclude:
+  Enabled: true
